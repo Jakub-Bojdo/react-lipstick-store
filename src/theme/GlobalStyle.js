@@ -16,7 +16,9 @@ body{
     font-size: 1.6rem;
     padding-left:30px ;
     margin: 0;
-    font-family: 'Montserrat', sans-serif
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+     overflow: hidden;
 }
 
 

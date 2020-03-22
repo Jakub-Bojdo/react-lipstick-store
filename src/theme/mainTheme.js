@@ -7,9 +7,10 @@ export const mainTheme = {
   lighterPink: "rgb(245,215,223)",
   darkerPink: "rgb(214, 65, 97)",
   red: "rgb(199, 0, 57)",
+  darkerRed: "rgb(173,3,21)",
   grey100: "hsl(0, 0%, 96%)",
   grey200: "hsl(0, 0%, 88%)",
-  grey300: "hsl(0, 0%, 70%)",
+  grey300: "hsl(0, 0%, 60%)",
   black: "rgb(0,0,0)",
   light: 300,
   medium: 400,
@@ -22,6 +23,7 @@ export const mainTheme = {
     s: "1.6rem",
     m: "2.1rem",
     l: "2.4rem",
-    xl: "5rem"
+    xl: "3.2rem",
+    xxl: "5rem"
   }
 };
