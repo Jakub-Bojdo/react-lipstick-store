@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import styled from "styled-components";
 import Input from "../../atoms/Input/Input";
@@ -7,6 +7,7 @@ import Heading from "../../atoms/Heading/Heading";
 import contactBgImage from "../../../assets/images/lipsticksContactBg.jpg";
 import closeArrowIcon from "../../../assets/icons/arrowIcon.svg";
 import * as Yup from "yup";
+import emailjs from "emailjs-com";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const StyledWrapper = styled.div`
   transition: transform 0.4s ease-in-out;
 `;
 
-const StyledFormWrapper = styled(Form)`
+const StyledFormWrapper = styled.form`
   display: flex;
 
   flex-direction: column;
@@ -48,6 +49,7 @@ const StyledFormTextArea = styled(Input)`
   margin: 30px 0 22px;
   height: 25vh;
   max-height: 25vh;
+  font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
 const StyledFormButton = styled(Button)`
@@ -74,45 +76,65 @@ const StyledArrowImage = styled.img`
   height: 50px;
 `;
 
-const ContactForm = ({ isVisible, handleClose }) => {
+const ContactForm = ({ isVisible, handleFormClose, handleAlertOpen }) => {
+  const formRef = useRef();
+
+  const sendEmail = e => {
+    e.preventDefault();
+
+    const service_id = "default_service";
+    const template_id = "lipstickstoreemail";
+    const user_id = process.env.REACT_APP_USER_ID;
+
+    emailjs.sendForm(service_id, template_id, e.target, user_id).then(
+      result => {
+        console.log(result.text);
+      },
+      error => {
+        console.log(error.text);
+      }
+    );
+
+    //Reset Inputs after send
+    const { email, subject, content } = e.target;
+    email.value = "";
+    subject.value = "";
+    content.value = "";
+
+    handleFormClose();
+    handleAlertOpen();
+  };
+
   return (
     <StyledWrapper isVisible={isVisible}>
       <StyledFormHeading>Contact Us</StyledFormHeading>
-      <Formik
-        initialValues={{ email: "", topic: "", content: "" }}
-        onSubmit={values => {
-          console.log("Message Send!");
-          console.log(values);
-        }}
-      >
-        {({ handleBlur, handleChange, handleSubmit }) => (
-          <StyledFormWrapper>
-            <StyledInputForm
-              type="email"
-              name="email"
-              placeholder="Your email address"
-              required
-            />
-            <StyledInputForm
-              type="text"
-              name="topic"
-              placeholder="What is this about?"
-              required
-            />
-            <StyledFormTextArea
-              type="text"
-              as="textarea"
-              rows="10"
-              required
-              name="content"
-              placeholder="How we can help You?"
-            />
-            <StyledFormButton type="submit">Send Message</StyledFormButton>
-          </StyledFormWrapper>
-        )}
-      </Formik>
-      <StyledCloseButton onClick={handleClose}>
-        <StyledArrowImage src={closeArrowIcon} alt="simea" />
+
+      <StyledFormWrapper onSubmit={sendEmail} ref={formRef}>
+        <StyledInputForm
+          type="email"
+          name="email"
+          placeholder="Your email address"
+          required
+        />
+        <StyledInputForm
+          type="text"
+          name="subject"
+          required
+          placeholder="What is this about?"
+        />
+        <StyledFormTextArea
+          type="text"
+          as="textarea"
+          rows="10"
+          name="content"
+          required
+          placeholder="How we can help You?"
+        />
+        <StyledFormButton type="submit">Send Message</StyledFormButton>
+      </StyledFormWrapper>
+
+      <StyledCloseButton onClick={handleFormClose}>
+        <StyledArrowImage src={closeArrowIcon} alt="close arrow" />
       </StyledCloseButton>
     </StyledWrapper>
   );
