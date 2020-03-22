@@ -6,6 +6,7 @@ import PageHeader from "../components/navigation/PageHeader";
 import Footer from "../components/navigation/Footer";
 import ContactForm from "../components/molecules/ContactForm/ContactForm";
 import Button from "../components/atoms/Button/Button";
+import Alert from "../components/atoms/Alert/Alert";
 
 const StyledContactUsButton = styled(Button)`
   position: absolute;
@@ -20,9 +21,19 @@ const StyledContactUsButton = styled(Button)`
 
 const MainTemplate = ({ children }) => {
   const [isContactFormVisible, setContactFormVisible] = useState(false);
+  const [isAlertVisible, setAlertVisible] = useState(false);
 
   const handleContactFormVisibility = () => {
     setContactFormVisible(!isContactFormVisible);
+  };
+
+  const handleAlertVisibility = () => {
+    setAlertVisible(!isAlertVisible);
+
+    //hide alert
+    setTimeout(() => {
+      setAlertVisible(false);
+    }, 3000);
   };
 
   return (
@@ -31,13 +42,18 @@ const MainTemplate = ({ children }) => {
       <ThemeProvider theme={mainTheme}>
         <>
           <PageHeader />
+          <Alert
+            isVisible={isAlertVisible}
+            handleAlertClose={handleAlertVisibility}
+          />
           {children}
           <StyledContactUsButton onClick={handleContactFormVisibility}>
             Contact Us
           </StyledContactUsButton>
           <ContactForm
             isVisible={isContactFormVisible}
-            handleClose={handleContactFormVisibility}
+            handleFormClose={handleContactFormVisibility}
+            handleAlertOpen={handleAlertVisibility}
           />
           <Footer />
         </>
