@@ -13,7 +13,7 @@ const StyledHomeWrapper = styled.div`
 `;
 
 const StyledLandingImage = styled.div`
-  flex: 1.5;
+  flex: 1.502;
   height: 86vh;
   background-image: url(${landingImage});
   background-repeat: inherit;
