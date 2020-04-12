@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 const StyledAlertPositionWrapper = styled.div`
   position: absolute;
@@ -8,21 +8,38 @@ const StyledAlertPositionWrapper = styled.div`
   z-index: 1000000;
   transform: translate(-52%, -5%);
 `;
+const alertAnimation = keyframes`
+
+0%{
+  transform: translateY(-200%)
+}
+100%{
+  transform: translateY(0%)
+}
+
+
+`;
 
 const StyledAlertWrapper = styled.div`
+  background-color: ${({ theme }) => theme.darkerPink};
+  width: 14vw;
+  height: 5vh;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
 
-/* transform: translateX(${({ isVisible }) => (isVisible ? "0" : "100%")}); */
-opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-transition: opacity 0.5s ease-in-out;
-background-color: ${({ theme }) => theme.darkerPink};
-width: 13vw;
-height: 5vh;
-border-radius:10px;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-position: relative;
+  ${({ isVisible }) =>
+    isVisible &&
+    css`
+      animation: ${alertAnimation} 0.5s ease-in-out;
+    `}
 
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 6vh;
+  }
 `;
 
 const StyledAlertHeading = styled.h4`
@@ -81,16 +98,17 @@ const StyledButtonContent = styled.div`
   }
 `;
 
-const Alert = ({ isVisible, handleAlertClose }) => (
-  <StyledAlertPositionWrapper>
-    <StyledAlertWrapper isVisible={isVisible}>
-      <StyledAlertHeading>Message Send!</StyledAlertHeading>
-      {/* <StyledAlertContent>Thank You !</StyledAlertContent> */}
-      <StyledAlertCloseButton onClick={handleAlertClose}>
-        <StyledButtonContent />
-      </StyledAlertCloseButton>
-    </StyledAlertWrapper>
-  </StyledAlertPositionWrapper>
-);
+const Alert = ({ alertContent, isAlertVisible, closeAlert }) => {
+  return (
+    <StyledAlertPositionWrapper>
+      <StyledAlertWrapper isVisible={isAlertVisible}>
+        <StyledAlertHeading>{alertContent}</StyledAlertHeading>
+        <StyledAlertCloseButton onClick={closeAlert}>
+          <StyledButtonContent />
+        </StyledAlertCloseButton>
+      </StyledAlertWrapper>
+    </StyledAlertPositionWrapper>
+  );
+};
 
 export default Alert;
