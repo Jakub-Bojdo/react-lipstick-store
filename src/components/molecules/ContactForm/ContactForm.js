@@ -1,13 +1,12 @@
-import React, { useRef } from "react";
-import { Formik, Form, ErrorMessage } from "formik";
+import React, { useRef, useContext } from "react";
 import styled from "styled-components";
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import Heading from "../../atoms/Heading/Heading";
 import contactBgImage from "../../../assets/images/lipsticksContactBg.jpg";
 import closeArrowIcon from "../../../assets/icons/arrowIcon.svg";
-import * as Yup from "yup";
 import emailjs from "emailjs-com";
+import RootContext from "../../../context/context";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -26,10 +25,15 @@ const StyledWrapper = styled.div`
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
   transform: translateX(${({ isVisible }) => (isVisible ? "0" : "100%")});
   transition: transform 0.4s ease-in-out;
+
+  @media (max-width: 500px) {
+    width: 365px;
+  }
 `;
 
 const StyledFormWrapper = styled.form`
   display: flex;
+  font-weight: ${({ theme }) => theme.medium};
 
   flex-direction: column;
 `;
@@ -40,9 +44,9 @@ const StyledInputForm = styled(Input)`
 
 const StyledFormHeading = styled(Heading)`
   text-align: center;
-  color: ${({ theme }) => theme.darkerRed};
+  color: ${({ theme }) => theme.darkerPink};
   font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.extraBold};
+  font-weight: ${({ theme }) => theme.medium};
 `;
 
 const StyledFormTextArea = styled(Input)`
@@ -53,7 +57,7 @@ const StyledFormTextArea = styled(Input)`
 `;
 
 const StyledFormButton = styled(Button)`
-  background-color: ${({ theme }) => theme.darkerRed};
+  background-color: ${({ theme }) => theme.darkerPink};
   width: 25vh;
   margin: 0 auto;
   padding: 12px 15px;
@@ -76,10 +80,12 @@ const StyledArrowImage = styled.img`
   height: 50px;
 `;
 
-const ContactForm = ({ isVisible, handleFormClose, handleAlertOpen }) => {
+const ContactForm = ({ isVisible, handleFormClose }) => {
+  const context = useContext(RootContext);
+  const { handleAlertVisibility } = context;
   const formRef = useRef();
 
-  const sendEmail = e => {
+  const sendEmail = (e) => {
     e.preventDefault();
 
     const service_id = "default_service";
@@ -87,10 +93,10 @@ const ContactForm = ({ isVisible, handleFormClose, handleAlertOpen }) => {
     const user_id = process.env.REACT_APP_USER_ID;
 
     emailjs.sendForm(service_id, template_id, e.target, user_id).then(
-      result => {
+      (result) => {
         console.log(result.text);
       },
-      error => {
+      (error) => {
         console.log(error.text);
       }
     );
@@ -102,7 +108,7 @@ const ContactForm = ({ isVisible, handleFormClose, handleAlertOpen }) => {
     content.value = "";
 
     handleFormClose();
-    handleAlertOpen();
+    handleAlertVisibility("message");
   };
 
   return (
