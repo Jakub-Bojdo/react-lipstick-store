@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import { routes } from "../../routes";
+import RootContext from "../../context/context";
 
 const StyledUl = styled.ul`
   list-style: none;
   display: flex;
   justify-content: flex-end;
   margin-right: 45px;
+
+  @media (max-width: 900px) {
+    justify-content: flex-start;
+    margin-right: 10px;
+    margin-left: -10px;
+  }
 `;
 
 const StyledLi = styled.li`
   margin: 0 30px;
+  @media (max-width: 900px) {
+    margin: 0 10px;
+  }
 `;
 
 const navLinksUnderlineAnimation = keyframes`
@@ -39,25 +50,44 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const StyledNavWrapper = styled.nav``;
-const Navigation = () => (
-  <StyledNavWrapper>
-    <StyledUl>
-      <StyledLi>
-        <StyledNavLink exact to="/">
-          Home
-        </StyledNavLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledNavLink exact to="/about">
-          About
-        </StyledNavLink>
-      </StyledLi>
-      <StyledLi>
-        <StyledNavLink exact to="/lipsticks">
-          Lipsticks
-        </StyledNavLink>
-      </StyledLi>
-    </StyledUl>
-  </StyledNavWrapper>
-);
+const Navigation = () => {
+  const context = useContext(RootContext);
+  const { handlePathnameChange } = context;
+
+  const { home, about, lipsticks } = routes;
+
+  return (
+    <>
+      <StyledUl>
+        <StyledLi>
+          <StyledNavLink
+            exact
+            to={home}
+            onClick={() => handlePathnameChange(home)}
+          >
+            Home
+          </StyledNavLink>
+        </StyledLi>
+        <StyledLi>
+          <StyledNavLink
+            exact
+            to={about}
+            onClick={() => handlePathnameChange(about)}
+          >
+            About
+          </StyledNavLink>
+        </StyledLi>
+        <StyledLi>
+          <StyledNavLink
+            exact
+            to={lipsticks}
+            onClick={() => handlePathnameChange(lipsticks)}
+          >
+            Lipsticks
+          </StyledNavLink>
+        </StyledLi>
+      </StyledUl>
+    </>
+  );
+};
 export default Navigation;
