@@ -21,6 +21,12 @@ import SimpleMap from "../components/molecules/GoogleMap/GoogleMap";
 const StyledAboutViewWrapper = styled.div`
   background-color: ${({ theme }) => theme.grey100};
   margin: auto;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const StyledSliderWrapper = styled.div`
@@ -28,6 +34,11 @@ const StyledSliderWrapper = styled.div`
   height: 80vh;
   margin: 0;
   padding-top: 10px;
+
+  @media (max-width: 500px) {
+    border-radius: 25px;
+    overflow: hidden;
+  }
 `;
 
 const StyledSecondSection = styled.div`
@@ -36,6 +47,12 @@ const StyledSecondSection = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 50px;
   margin: auto;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    padding: 70px 20px 50px 20px;
+  }
 `;
 
 const StyledAboutTextWrapper = styled.div`
@@ -43,6 +60,10 @@ const StyledAboutTextWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin-top: -30px;
+
+  @media (max-width: 900px) {
+    padding: 0 20px 0 20px;
+  }
 `;
 
 const StyledImage = styled.div`
@@ -54,10 +75,17 @@ const StyledImage = styled.div`
   margin: 0 auto;
   border-radius: 15px;
   box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+
+  @media (max-width: 900px) {
+    height: 400px;
+  }
 `;
 
 const StyledHeading = styled(Heading)`
   color: ${({ theme }) => theme.red};
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const StyledSubHeading = styled(Heading)`
@@ -86,6 +114,10 @@ const StyledSubHeading = styled(Heading)`
         top: 100%;
       `}
   }
+  @media (max-width: 600px) {
+    font-size: ${({ theme, huge }) =>
+      huge ? theme.fontSize.xl : theme.fontSize.m};
+  }
 `;
 
 const StyledRedirectSectionText = styled(Heading)`
@@ -105,6 +137,10 @@ const StyledRedirectSectionText = styled(Heading)`
     top: 50%;
     left: 0;
     margin-left: -100px;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
   }
 
   &:after {
@@ -117,6 +153,15 @@ const StyledRedirectSectionText = styled(Heading)`
     top: 50%;
     right: 0;
     margin-right: -100px;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    font-size: ${({ theme }) => theme.fontSize.l};
+    margin: 0;
   }
 `;
 
@@ -127,6 +172,12 @@ const StyledThirdSectionWrapper = styled.div`
   grid-column-gap: 50px;
   margin: auto;
   position: relative;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px 50px 20px;
+  }
 `;
 
 const StyledGridImagesWrapper = styled.div`
@@ -137,6 +188,11 @@ const StyledGridImagesWrapper = styled.div`
   border-radius: 25px;
   overflow: hidden;
   margin-top: -40px;
+
+  @media (max-width: 500px) {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const StyledGridImage = styled.div`
@@ -151,18 +207,37 @@ const StyledGridImage = styled.div`
 const StyledThridTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 900px) {
+    padding: 0 20px 0 20px;
+  }
 `;
 
 const StyledDelayTextWrapper = styled.div`
   position: absolute;
   top: 50%;
   right: 29.5%;
+
+  @media (max-width: 900px) {
+    position: relative;
+    width: 100%;
+    top: 0;
+    right: 0;
+    margin-left: 20px;
+    padding: 20px 0 20px 0;
+  }
 `;
 const StyledProductsRedirectWrapper = styled.div`
   position: absolute;
   top: 65%;
   right: 15%;
   text-align: center;
+
+  @media (max-width: 900px) {
+    position: relative;
+    top: 0;
+    right: 0;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -170,6 +245,10 @@ const StyledLink = styled(Link)`
   text-transform: capitalize;
   margin-left: 80px;
   font-size: ${({ theme }) => theme.fontSize.l};
+
+  @media (max-width: 900px) {
+    margin: 0;
+  }
 `;
 
 const StyledMapWrapper = styled.div`
@@ -180,6 +259,13 @@ const StyledMapWrapper = styled.div`
   margin: auto;
   position: relative;
   height: 600px;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px 20px 20px;
+    height: auto;
+  }
 `;
 
 const StyledMapDiv = styled.div`
@@ -187,6 +273,11 @@ const StyledMapDiv = styled.div`
   width: 100%;
   border-radius: 20px;
   overflow: hidden;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    height: 340px;
+  }
 `;
 
 const StyledStationaryImage = styled.div`
@@ -197,6 +288,10 @@ const StyledStationaryImage = styled.div`
   margin: 0 auto;
   border-radius: 20px;
   margin-top: 50px;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const StyledAboutFooter = styled.div`
@@ -207,12 +302,21 @@ const StyledAboutFooter = styled.div`
   grid-template-columns: 1fr 0.1fr;
   align-items: center;
   padding: 0 60px 0 60px;
+
+  @media (max-width: 500px) {
+    height: 40px;
+    display: flex;
+    padding: 0;
+  }
 `;
 
 const StyledFooterText = styled(Paragraph)`
   color: white;
   text-transform: capitalize;
   font-size: ${({ theme }) => theme.fontSize.cart};
+  @media (max-width: 500px) {
+    padding-left: 10px;
+  }
 `;
 
 const StyledFooterIconsWrapper = styled.div`
@@ -226,6 +330,10 @@ const StyledFooterIcon = styled.a`
   transition: all 0.6s ease-in-out;
   :hover {
     color: ${({ theme }) => theme.darkerPink};
+  }
+
+  @media (max-width: 500px) {
+    margin: 0 5px 0 5px;
   }
 `;
 
@@ -330,7 +438,7 @@ const About = () => {
             <StyledStationaryImage src={stationaryImage2} />
           </Slide>
         </div>
-        <Slide top duration={1500}>
+        <Slide bottom duration={1500}>
           <StyledMapDiv>
             <SimpleMap />
           </StyledMapDiv>
@@ -342,7 +450,7 @@ const About = () => {
             copyright &copy; lipstick shop {new Date().getFullYear()} all rights
             reserved
           </StyledFooterText>
-          <Rotate bottom right delay={1900}>
+          <Rotate bottom right delay={1600}>
             <StyledFooterIconsWrapper>
               <StyledFooterIcon
                 href="https://www.facebook.com/"
