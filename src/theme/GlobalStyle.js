@@ -41,6 +41,7 @@ body{
       overflow-x: hidden;
      @media (max-width: 900px) {
         padding: 0px;
+        margin: 0px;
         overflow: scroll;
 
   }
