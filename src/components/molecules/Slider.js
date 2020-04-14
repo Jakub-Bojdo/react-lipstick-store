@@ -27,6 +27,8 @@ const StyledSlider = styled(AutoplaySlider)`
   width: 85%;
   height: 100%;
   margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
 `;
 
 const StyledDiv = styled.div`
